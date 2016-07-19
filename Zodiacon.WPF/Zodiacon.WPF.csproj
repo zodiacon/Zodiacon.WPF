@@ -59,6 +59,7 @@
     <Compile Include="BindingProxy.cs" />
     <Compile Include="DefaultDialogService.cs" />
     <Compile Include="DialogViewModelBase.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="IDialogService.cs" />
     <Compile Include="IFileDialogService.cs" />
     <Compile Include="IMessageBoxService.cs" />
