@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Interactivity;
 
 namespace Zodiacon.WPF.Behaviors {
-    public class TreeViewSelectedItemBehavior : Behavior<TreeView> {
+    public sealed class TreeViewSelectedItemBehavior : Behavior<TreeView> {
         protected override void OnAttached() {
             base.OnAttached();
 
