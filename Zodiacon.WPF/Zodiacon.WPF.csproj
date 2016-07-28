@@ -55,6 +55,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Behaviors\SelectorActiveBehavior.cs" />
     <Compile Include="Behaviors\TreeViewSelectedItemBehavior.cs" />
     <Compile Include="BindingProxy.cs" />
     <Compile Include="BooleanToVisibilityConverter.cs" />
@@ -79,6 +80,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="PropertyFollower.cs" />
     <Compile Include="SimpleFileDialogService.cs" />
     <Compile Include="SimpleMessageBox.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
