@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Behaviors\TreeViewSelectedItemBehavior.cs" />
     <Compile Include="BindingProxy.cs" />
+    <Compile Include="BooleanToVisibilityConverter.cs" />
     <Compile Include="DefaultDialogService.cs" />
     <Compile Include="DialogViewModelBase.cs" />
     <Compile Include="Extensions.cs" />
