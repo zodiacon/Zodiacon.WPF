@@ -83,6 +83,7 @@
     <Compile Include="PropertyFollower.cs" />
     <Compile Include="SimpleFileDialogService.cs" />
     <Compile Include="SimpleMessageBox.cs" />
+    <Compile Include="UIServicesDefaults.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
