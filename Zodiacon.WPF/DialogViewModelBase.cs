@@ -15,7 +15,11 @@ namespace Zodiacon.WPF {
         protected DialogViewModelBase(Window dialog) {
             _dialog = dialog;
 
-            _okCommand = new DelegateCommand(() => Close(true), _canExecuteOKCommand);
+            _okCommand = new DelegateCommand(() => OnOK(), _canExecuteOKCommand);
+        }
+
+        protected virtual void OnOK() {
+            Close(true);
         }
 
         protected DialogViewModelBase(bool? result) : this((Window)null) {

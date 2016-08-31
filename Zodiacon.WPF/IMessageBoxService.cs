@@ -8,5 +8,6 @@ using System.Windows;
 namespace Zodiacon.WPF {
     public interface IMessageBoxService {
         MessageBoxResult ShowMessage(string message, string caption, MessageBoxButton buttons = MessageBoxButton.OK, MessageBoxImage image = MessageBoxImage.None);
+        void SetOwner(Window ownerWindow);
     }
 }
