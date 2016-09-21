@@ -1,21 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{80DD3ED3-1A09-4012-905F-74FCC92DAD8D}</ProjectGuid>
-    <OutputType>library</OutputType>
+    <ProjectGuid>{CB27C83A-B72B-4456-948C-80BF24A8E8C2}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Zodiacon.WPF</RootNamespace>
-    <AssemblyName>Zodiacon.WPF</AssemblyName>
+    <RootNamespace>FileExplorer</RootNamespace>
+    <AssemblyName>FileExplorer</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <TargetFrameworkProfile />
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,6 +26,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,14 +35,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Prism, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8, processorArchitecture=MSIL">
-      <HintPath>..\packages\Prism.Core.6.1.0\lib\net45\Prism.dll</HintPath>
+    <Reference Include="MahApps.Metro, Version=1.3.0.199, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.3.0-ALPHA199\lib\net45\MahApps.Metro.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Prism, Version=6.1.0.0, Culture=neutral, PublicKeyToken=91a96d2a154366d8" />
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.3.0-ALPHA199\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,24 +60,33 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppCommandManager.cs" />
-    <Compile Include="Behaviors\KeyNavigationTreeViewBehavior.cs" />
-    <Compile Include="Behaviors\SelectorActiveBehavior.cs" />
-    <Compile Include="Behaviors\TextBlockHighlightBehavior.cs" />
-    <Compile Include="ITreeViewItem.cs" />
-    <Compile Include="Behaviors\TreeViewSelectedItemBehavior.cs" />
-    <Compile Include="BindingProxy.cs" />
-    <Compile Include="BooleanToVisibilityConverter.cs" />
-    <Compile Include="DefaultDialogService.cs" />
-    <Compile Include="DialogViewModelBase.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="AppCommand.cs" />
-    <Compile Include="IDialogService.cs" />
-    <Compile Include="IFileDialogService.cs" />
-    <Compile Include="IMessageBoxService.cs" />
-    <Compile Include="InputHelper.cs" />
-    <Compile Include="ImageExtension.cs" />
-    <Compile Include="NativeMethods.cs" />
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\TreeItemViewModel.cs" />
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Views\MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -86,13 +100,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="PropertyFollower.cs" />
-    <Compile Include="SimpleFileDialogService.cs" />
-    <Compile Include="SimpleMessageBox.cs" />
-    <Compile Include="TreeViewItemBase.cs" />
-    <Compile Include="UIServicesDefaults.cs" />
-    <Compile Include="Utilities\TreeViewHelper.cs" />
-    <Compile Include="Utilities\VirtualizingStackPanelEx.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -104,7 +111,34 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Zodiacon.WPF\Zodiacon.WPF.csproj">
+      <Project>{80dd3ed3-1a09-4012-905f-74fcc92dad8d}</Project>
+      <Name>Zodiacon.WPF</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\folder.ico" />
+    <Resource Include="Images\folder_closed.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\cd.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\usb.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\data.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\harddisk_network.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\harddisk.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

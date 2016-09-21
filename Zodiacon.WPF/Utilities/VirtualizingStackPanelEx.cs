@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace Zodiacon.WPF.Utilities {
-    public class VirtualizingStackPanelEx : VirtualizingStackPanel {
+    public sealed class VirtualizingStackPanelEx : VirtualizingStackPanel {
         /// <summary>
         /// Publically expose BringIndexIntoView.
         /// </summary>
         public void BringIntoView(int index) {
 
-            this.BringIndexIntoView(index);
+            base.BringIndexIntoView(index);
         }
     }
 }

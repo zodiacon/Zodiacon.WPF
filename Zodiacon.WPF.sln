@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.25618.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zodiacon.WPF", "Zodiacon.WPF\Zodiacon.WPF.csproj", "{80DD3ED3-1A09-4012-905F-74FCC92DAD8D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{FBC88225-456F-4C53-AAEC-2AFBBD6301C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileExplorer", "FileExplorer\FileExplorer.csproj", "{CB27C83A-B72B-4456-948C-80BF24A8E8C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +19,15 @@ Global
 		{80DD3ED3-1A09-4012-905F-74FCC92DAD8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80DD3ED3-1A09-4012-905F-74FCC92DAD8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80DD3ED3-1A09-4012-905F-74FCC92DAD8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB27C83A-B72B-4456-948C-80BF24A8E8C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB27C83A-B72B-4456-948C-80BF24A8E8C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB27C83A-B72B-4456-948C-80BF24A8E8C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB27C83A-B72B-4456-948C-80BF24A8E8C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CB27C83A-B72B-4456-948C-80BF24A8E8C2} = {FBC88225-456F-4C53-AAEC-2AFBBD6301C4}
 	EndGlobalSection
 EndGlobal

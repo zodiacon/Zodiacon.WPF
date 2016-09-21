@@ -1,0 +1,15 @@
+﻿<metro:MetroWindow x:Class="FileExplorer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FileExplorer"
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+                   xmlns:view="clr-namespace:FileExplorer.Views"
+        mc:Ignorable="d"
+        TitleCaps="False" BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1" 
+        Title="Simple File Explorer" MinHeight="350" MinWidth="525">
+    <view:MainView Margin="2">
+        
+    </view:MainView>
+</metro:MetroWindow>
