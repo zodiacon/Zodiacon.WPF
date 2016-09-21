@@ -55,18 +55,24 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppCommandManager.cs" />
+    <Compile Include="Behaviors\KeyNavigationTreeViewBehavior.cs" />
     <Compile Include="Behaviors\SelectorActiveBehavior.cs" />
+    <Compile Include="Behaviors\TextBlockHighlightBehavior.cs" />
+    <Compile Include="ITreeViewItem.cs" />
     <Compile Include="Behaviors\TreeViewSelectedItemBehavior.cs" />
     <Compile Include="BindingProxy.cs" />
     <Compile Include="BooleanToVisibilityConverter.cs" />
     <Compile Include="DefaultDialogService.cs" />
     <Compile Include="DialogViewModelBase.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="AppCommand.cs" />
     <Compile Include="IDialogService.cs" />
     <Compile Include="IFileDialogService.cs" />
     <Compile Include="IMessageBoxService.cs" />
     <Compile Include="InputHelper.cs" />
     <Compile Include="ImageExtension.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -84,6 +90,8 @@
     <Compile Include="SimpleFileDialogService.cs" />
     <Compile Include="SimpleMessageBox.cs" />
     <Compile Include="UIServicesDefaults.cs" />
+    <Compile Include="Utilities\TreeViewHelper.cs" />
+    <Compile Include="Utilities\VirtualizingStackPanelEx.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

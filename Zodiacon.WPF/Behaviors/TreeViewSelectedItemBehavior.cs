@@ -8,6 +8,9 @@ using System.Windows.Controls;
 using System.Windows.Interactivity;
 
 namespace Zodiacon.WPF.Behaviors {
+    /// <summary>
+    /// Provides a setter for selected item in TreeView
+    /// </summary>
     public sealed class TreeViewSelectedItemBehavior : Behavior<TreeView> {
         protected override void OnAttached() {
             base.OnAttached();
