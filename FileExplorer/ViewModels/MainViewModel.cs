@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -7,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FileExplorer.ViewModels {
-    class MainViewModel {
+    class MainViewModel : BindableBase {
         ObservableCollection<TreeItemViewModel> _drives;
 
         public MainViewModel() {
@@ -23,6 +24,36 @@ namespace FileExplorer.ViewModels {
             }));
         }
 
+        private TreeItemViewModel _selectedItem;
+
+        public TreeItemViewModel SelectedItem {
+            get { return _selectedItem; }
+            set {
+                if(SetProperty(ref _selectedItem, value)) {
+                    OnPropertyChanged(nameof(Files));
+                }
+            }
+        }
+
+        public IEnumerable<FileViewModel> Files {
+            get {
+                if(SelectedItem == null)
+                    return null;
+                try {
+                    return from path in Directory.EnumerateFiles(SelectedItem.FullPath)
+                            let file = new FileInfo(path)
+                            select new FileViewModel {
+                                Name = file.Name,
+                                Size = file.Length,
+                                Modified = file.LastWriteTime
+                            };
+                }
+                catch {
+                    return null;
+                }
+            }
+        }
+
         private string DriveToIcon(DriveInfo drive) {
             switch(drive.DriveType) {
                 case DriveType.CDRom:
@@ -33,6 +64,8 @@ namespace FileExplorer.ViewModels {
                     return "/images/harddisk_network.ico";
                 case DriveType.Removable:
                     return "/images/usb.ico";
+                case DriveType.Ram:
+                    return "/images/ram.ico";
                 default:
                     return "/images/data.ico";
             }

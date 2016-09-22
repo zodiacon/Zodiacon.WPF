@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interactivity;
@@ -23,9 +24,20 @@ namespace Zodiacon.WPF.Behaviors {
             AssociatedObject.KeyUp += AssociatedObject_KeyUp;
             AssociatedObject.TextInput += AssociatedObject_TextInput;
 
-            _timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(.8) };
+            _timer = new DispatcherTimer { Interval = Interval };
             _timer.Tick += _timer_Tick;
         }
+
+
+
+        public TimeSpan Interval {
+            get { return (TimeSpan)GetValue(IntervalProperty); }
+            set { SetValue(IntervalProperty, value); }
+        }
+
+        public static readonly DependencyProperty IntervalProperty =
+            DependencyProperty.Register(nameof(Interval), typeof(TimeSpan), typeof(KeyNavigationTreeViewBehavior), new PropertyMetadata(TimeSpan.FromSeconds(.5)));
+
 
         void _timer_Tick(object sender, EventArgs e) {
             _timer.Stop();
@@ -92,7 +104,8 @@ namespace Zodiacon.WPF.Behaviors {
             }
             else {
                 // The Tree template has not named the ItemsPresenter, 
-                // so walk the descendants and find the child.
+                // so walk the descendants and find the child
+
                 itemsPresenter = TreeViewHelper.FindVisualChild<ItemsPresenter>(container);
                 if(itemsPresenter == null) {
                     container.UpdateLayout();
@@ -101,10 +114,9 @@ namespace Zodiacon.WPF.Behaviors {
                 }
             }
 
-            Panel itemsHostPanel = (Panel)VisualTreeHelper.GetChild(itemsPresenter, 0);
+            var itemsHostPanel = (Panel)VisualTreeHelper.GetChild(itemsPresenter, 0);
 
-            // Ensure that the generator for this panel has been created.
-            UIElementCollection children = itemsHostPanel.Children;
+            var children = itemsHostPanel.Children;
 
             var virtualizingPanel = itemsHostPanel as VirtualizingStackPanelEx;
             Debug.Assert(virtualizingPanel != null);
@@ -147,9 +159,6 @@ namespace Zodiacon.WPF.Behaviors {
                     }
                 }
 
-                //var index = item.Parent.SubItems.IndexOf(item);
-                //if(index < item.Parent.SubItems.Count)
-                //	return SearchSubTree(item.Parent.SubItems[index]);
             }
             return null;
         }
