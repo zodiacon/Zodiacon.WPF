@@ -52,22 +52,24 @@ namespace FileExplorer.ViewModels {
         async Task AddDirectories(IList<ITreeViewItemMatch> items, string path, CancellationToken ct) {
             var dispatcher = Dispatcher.CurrentDispatcher;
             var searchText = MainViewModel.SearchText;
+            bool search = !string.IsNullOrEmpty(searchText);
             var directories = await DirectoryHelper.EnumerateDirectoriesAsync(path);
-            var list = new List<TreeItemViewModel>(directories.Length);
 
-            await Task.Run(() => {
+            var resultList = await Task.Run(() => {
+                var list = new List<TreeItemViewModel>(directories.Length);
                 foreach(var dir in directories) {
                     list.Add(new TreeItemViewModel(MainViewModel, TreeItemType.Folder, this) {
                         Text = Path.GetFileName(dir),
                         FullPath = dir,
                         Icon = "/images/folder_closed.ico",
-                        IsExpanded = false
+                        IsExpanded = false,
                     });
                 }
+                return list;
             });
 
             await dispatcher.InvokeAsync(() => {
-                foreach(var vm in list)
+                foreach(var vm in resultList)
                     items.Add(vm);
             }, DispatcherPriority.Background);
         }
