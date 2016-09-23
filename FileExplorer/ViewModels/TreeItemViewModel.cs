@@ -76,6 +76,7 @@ namespace FileExplorer.ViewModels {
             if(!build) {
                 if(_items != null)
                     _items.Clear();
+                _items = null;
                 OnPropertyChanged(nameof(SubItems));
                 return;
             }
@@ -88,7 +89,7 @@ namespace FileExplorer.ViewModels {
                 _items.Clear();
 
             await AddDirectories(_items, FullPath, ct);
-            await Dispatcher.Yield(DispatcherPriority.DataBind);
+            await Dispatcher.Yield(DispatcherPriority.Background);
         }
 
 
