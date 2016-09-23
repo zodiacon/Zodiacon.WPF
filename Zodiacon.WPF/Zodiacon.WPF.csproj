@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="AppCommandManager.cs" />
     <Compile Include="Behaviors\KeyNavigationTreeViewBehavior.cs" />
+    <Compile Include="Behaviors\SearchTextTreeViewBehavior.cs" />
     <Compile Include="Behaviors\SelectorActiveBehavior.cs" />
     <Compile Include="Behaviors\TextBlockHighlightBehavior.cs" />
     <Compile Include="ITreeViewItem.cs" />

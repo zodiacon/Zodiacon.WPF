@@ -4,7 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:z="http://zodiacon.wpf/2016"
+             x:Name="This"
         xmlns:local="clr-namespace:FileExplorer.Views"
         mc:Ignorable="d"
         >
@@ -17,17 +19,32 @@
             <ColumnDefinition />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
-        <TextBox Text="{Binding SearchText, Mode=TwoWay}" />
+        <StackPanel Orientation="Horizontal">
+            <TextBox Text="{Binding SearchText, Mode=TwoWay, Delay=500, UpdateSourceTrigger=PropertyChanged}" 
+                 metro:TextBoxHelper.Watermark="Search folders" metro:TextBoxHelper.ClearTextButton="True" 
+                 Width="300" HorizontalAlignment="Left"/>
+            <metro:ProgressRing Margin="4,0,0,0" IsActive="{Binding IsBusy}" Width="24" Height="24" />
+        </StackPanel>
         <TreeView Grid.Row="1" ItemsSource="{Binding Drives}">
+            <TreeView.Resources>
+                <z:BooleanToVisibilityConverter x:Key="bool2vis" />
+            </TreeView.Resources>
             <i:Interaction.Behaviors>
                 <z:TreeViewSelectedItemBehavior SelectedItem="{Binding SelectedItem, Mode=TwoWay, Delay=400}" />
                 <z:KeyNavigationTreeViewBehavior />
+                <z:SearchTextTreeViewBehavior Items="{Binding Drives}" SearchText="{Binding SearchText}" 
+                                              IsBusy="{Binding IsBusy, Mode=TwoWay}"/>
             </i:Interaction.Behaviors>
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding SubItems}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{Binding Icon}" Width="24" Height="24" />
-                        <TextBlock Margin="4,0,0,0" VerticalAlignment="Center" Text="{Binding Text}" />
+                        <TextBlock Margin="4,0,0,0" VerticalAlignment="Center" Text="{Binding Text}" Tag="{Binding Text}">
+                            <i:Interaction.Behaviors>
+                                <z:TextBlockHighlightBehavior HighlightText="{Binding DataContext.SearchText, Mode=OneWay, ElementName=This}"
+                                                              HighlightBackground="Orange"/>
+                            </i:Interaction.Behaviors>
+                        </TextBlock>
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
@@ -35,6 +52,7 @@
                 <Style TargetType="TreeViewItem" BasedOn="{StaticResource MetroTreeViewItem}">
                     <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                     <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                    <Setter Property="Visibility" Value="{Binding IsVisible, Mode=TwoWay, Converter={StaticResource bool2vis}}" />
                 </Style>
             </TreeView.ItemContainerStyle>
         </TreeView>
@@ -52,6 +70,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Size" Binding="{Binding Size}" />
+                <DataGridTextColumn Header="Modified" Binding="{Binding Modified}" />
             </DataGrid.Columns>
         </DataGrid>
 

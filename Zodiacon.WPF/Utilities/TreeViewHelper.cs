@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace Zodiacon.WPF.Utilities {
     static class TreeViewHelper {
-        public static TreeViewItem GetTreeViewItem(ItemsControl container, ITreeViewItem item, IComparer<ITreeViewItem> comparer) {
+        public static TreeViewItem GetTreeViewItem(ItemsControl container, ITreeViewItemMatch item, IComparer<ITreeViewItemMatch> comparer) {
             if(container != null) {
                 if(container.DataContext == item) {
                     return container as TreeViewItem;
@@ -21,8 +21,7 @@ namespace Zodiacon.WPF.Utilities {
                 }
 
                 container.ApplyTemplate();
-                ItemsPresenter itemsPresenter =
-                     (ItemsPresenter)container.Template.FindName("ItemsHost", container);
+                var itemsPresenter = (ItemsPresenter)container.Template.FindName("ItemsHost", container);
                 if(itemsPresenter != null) {
                     itemsPresenter.ApplyTemplate();
                 }
@@ -41,7 +40,7 @@ namespace Zodiacon.WPF.Utilities {
 
 
                 // Ensure that the generator for this panel has been created.
-                UIElementCollection children = itemsHostPanel.Children;
+                var children = itemsHostPanel.Children;
 
                 var virtualizingPanel = itemsHostPanel as VirtualizingStackPanelEx;
                 Debug.Assert(virtualizingPanel != null);
@@ -74,7 +73,7 @@ namespace Zodiacon.WPF.Utilities {
                         return subContainer;
                     }
 
-                    if(comparer.Compare(item, subContainer.DataContext as ITreeViewItem) > 0)
+                    if(comparer.Compare(item, subContainer.DataContext as ITreeViewItemMatch) > 0)
                         index1 = newindex;
                     else
                         index2 = newindex;

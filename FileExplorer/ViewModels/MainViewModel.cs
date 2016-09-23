@@ -5,7 +5,13 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
+using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace FileExplorer.ViewModels {
     class MainViewModel : BindableBase {
@@ -17,14 +23,31 @@ namespace FileExplorer.ViewModels {
         public IList<TreeItemViewModel> Drives => _drives ?? (_drives = BuildDrives());
 
         private ObservableCollection<TreeItemViewModel> BuildDrives() {
-            return new ObservableCollection<TreeItemViewModel>(DriveInfo.GetDrives().Select(drive => new TreeItemViewModel(TreeItemType.Drive) {
+            var drives = new ObservableCollection<TreeItemViewModel>(DriveInfo.GetDrives().
+                Where(drive => drive.IsReady).
+                Select(drive => new TreeItemViewModel(this, TreeItemType.Drive) {
                 Text = drive.Name,
                 Icon = DriveToIcon(drive),
                 FullPath = drive.RootDirectory.Name
             }));
+            return drives;
         }
 
         private TreeItemViewModel _selectedItem;
+
+        private string _searchText;
+
+        public string SearchText {
+            get { return _searchText; }
+            set { SetProperty(ref _searchText, value); }
+        }
+
+        private bool _isBusy;
+
+        public bool IsBusy {
+            get { return _isBusy; }
+            set { SetProperty(ref _isBusy, value); }
+        }
 
         public TreeItemViewModel SelectedItem {
             get { return _selectedItem; }
@@ -38,20 +61,41 @@ namespace FileExplorer.ViewModels {
         public IEnumerable<FileViewModel> Files {
             get {
                 if(SelectedItem == null)
-                    return null;
-                try {
-                    return from path in Directory.EnumerateFiles(SelectedItem.FullPath)
-                            let file = new FileInfo(path)
-                            select new FileViewModel {
-                                Name = file.Name,
-                                Size = file.Length,
-                                Modified = file.LastWriteTime
-                            };
-                }
-                catch {
-                    return null;
+                    yield break;
+
+                foreach(var filepath in Directory.EnumerateFiles(SelectedItem.FullPath)) {
+                    var file = new FileInfo(filepath);
+                    var vm = new FileViewModel(filepath) {
+                        Name = file.Name,
+                        Size = file.Length,
+                        Modified = file.LastWriteTime,
+                    };
+                    SetIconAsync(vm);
+                    yield return vm;
                 }
             }
+        }
+
+
+        private async static void SetIconAsync(FileViewModel vm) {
+            vm.Icon = await ExtractIconAsync(vm.Path);
+        }
+
+        private async static Task<ImageSource> ExtractIconAsync(string path) {
+            var hExtractedIcon = await Task.Run(() => {
+                var hIcon = NativeMethods.ExtractIcon(IntPtr.Zero, path, 0);
+                return hIcon;
+            });
+
+            if(hExtractedIcon == IntPtr.Zero || hExtractedIcon == new IntPtr(1))
+                return null;
+
+            var image = Imaging.CreateBitmapSourceFromHIcon(hExtractedIcon, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            if(image != null)
+                image.Freeze();
+
+            NativeMethods.DestroyIcon(hExtractedIcon);
+            return image;
         }
 
         private string DriveToIcon(DriveInfo drive) {

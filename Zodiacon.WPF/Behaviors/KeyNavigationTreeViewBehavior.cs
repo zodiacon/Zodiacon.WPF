@@ -45,7 +45,7 @@ namespace Zodiacon.WPF.Behaviors {
             if(string.IsNullOrEmpty(_searchterm))
                 return;
 
-            var item = AssociatedObject.SelectedItem as ITreeViewItem;
+            var item = AssociatedObject.SelectedItem as ITreeViewItemMatch;
             if(item == null) return;
 
             var found = SearchSubTree(item);
@@ -69,7 +69,7 @@ namespace Zodiacon.WPF.Behaviors {
             _timer.Start();
         }
 
-        TreeViewItem GetTreeViewItemFromObject(ITreeViewItem item) {
+        TreeViewItem GetTreeViewItemFromObject(ITreeViewItemMatch item) {
             var indices = new List<int>(4);
             while(item.Parent != null) {
                 indices.Add(item.Parent.SubItems.IndexOf(item));
@@ -97,8 +97,7 @@ namespace Zodiacon.WPF.Behaviors {
 
         VirtualizingStackPanelEx GetPanelForTreeViewItem(TreeViewItem container) {
             container.ApplyTemplate();
-            ItemsPresenter itemsPresenter =
-                 (ItemsPresenter)container.Template.FindName("ItemsHost", container);
+            var itemsPresenter = (ItemsPresenter)container.Template.FindName("ItemsHost", container);
             if(itemsPresenter != null) {
                 itemsPresenter.ApplyTemplate();
             }
@@ -124,7 +123,7 @@ namespace Zodiacon.WPF.Behaviors {
             return virtualizingPanel;
         }
 
-        ITreeViewItem BinarySearch(IList<ITreeViewItem> items) {
+        ITreeViewItemMatch BinarySearch(IList<ITreeViewItemMatch> items) {
             int index1 = 0, index2 = items.Count;
             string lower = _searchterm.ToLower();
 
@@ -140,13 +139,13 @@ namespace Zodiacon.WPF.Behaviors {
             return null;
         }
 
-        private ITreeViewItem SearchSubTree(ITreeViewItem item) {
+        private ITreeViewItemMatch SearchSubTree(ITreeViewItemMatch item) {
             if(item.IsExpanded && item.SubItems != null) {
                 foreach(var subItem in item.SubItems) {
                     if(subItem.Text.StartsWith(_searchterm, StringComparison.CurrentCultureIgnoreCase)) {
                         return subItem;
                     }
-                    ITreeViewItem newItem;
+                    ITreeViewItemMatch newItem;
                     if(subItem.IsExpanded && (newItem = SearchSubTree(subItem)) != null) {
                         return newItem;
                     }

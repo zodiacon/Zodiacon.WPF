@@ -24,7 +24,7 @@ namespace Zodiacon.WPF.Behaviors {
             base.OnAttached();
 
             AssociatedObject.Loaded += delegate {
-                if(!string.IsNullOrEmpty(SearchText))
+                if(!string.IsNullOrEmpty(HighlightText))
                     OnSearchTextChanged();
             };
 
@@ -57,13 +57,13 @@ namespace Zodiacon.WPF.Behaviors {
             DependencyProperty.Register(nameof(HighlightForeground), typeof(Brush), typeof(TextBlockHighlightBehavior), new PropertyMetadata(null));
 
 
-        public string SearchText {
-            get { return (string)GetValue(SearchTextProperty); }
-            set { SetValue(SearchTextProperty, value); }
+        public string HighlightText {
+            get { return (string)GetValue(HighlightTextProperty); }
+            set { SetValue(HighlightTextProperty, value); }
         }
 
-        public static readonly DependencyProperty SearchTextProperty =
-            DependencyProperty.Register(nameof(SearchText), typeof(string), typeof(TextBlockHighlightBehavior),
+        public static readonly DependencyProperty HighlightTextProperty =
+            DependencyProperty.Register(nameof(HighlightText), typeof(string), typeof(TextBlockHighlightBehavior),
                 new PropertyMetadata(null, (s, e) => ((TextBlockHighlightBehavior)s).OnSearchTextChanged()));
 
         private void OnSearchTextChanged() {
@@ -74,14 +74,14 @@ namespace Zodiacon.WPF.Behaviors {
             inlines.Clear();
             var value = AssociatedObject.Tag.ToString();
 
-            if(string.IsNullOrEmpty(SearchText) || !value.ToLower().Contains(SearchText.ToLower())) {
+            if(string.IsNullOrEmpty(HighlightText) || !value.ToLower().Contains(HighlightText.ToLower())) {
                 inlines.Add(value);
             }
             else {
                 var foreground = HighlightForeground ?? AssociatedObject.Foreground;
                 var background = HighlightBackground ?? AssociatedObject.Background;
 
-                var regex = new Regex("(" + SearchText + ")", 
+                var regex = new Regex("(" + HighlightText + ")", 
                     SearchTextOptions == SearchTextOptions.IgnoreCase ? RegexOptions.IgnoreCase : RegexOptions.None);
                 foreach(var substring in regex.Split(value)) {
                     if(string.IsNullOrEmpty(substring))

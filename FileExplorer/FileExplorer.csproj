@@ -64,6 +64,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DirectoryHelper.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="ViewModels\FileViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\TreeItemViewModel.cs" />
@@ -142,6 +144,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Ram.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\app.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
