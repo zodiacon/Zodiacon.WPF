@@ -35,8 +35,8 @@ namespace FileExplorer.ViewModels {
             set { SetProperty(ref _icon, value); }
         }
 
-        ObservableCollection<ITreeViewItemMatch> _items;
-        public override IList<ITreeViewItemMatch> SubItems {
+        ObservableCollection<ITreeViewItem> _items;
+        public override IList<ITreeViewItem> SubItems {
             get {
                 if(_items == null) {
                     Debug.WriteLine($"SubItems: {FullPath}");
@@ -49,7 +49,7 @@ namespace FileExplorer.ViewModels {
             }
         }
 
-        async Task AddDirectories(IList<ITreeViewItemMatch> items, string path, CancellationToken ct) {
+        async Task AddDirectories(IList<ITreeViewItem> items, string path, CancellationToken ct) {
             var dispatcher = Dispatcher.CurrentDispatcher;
             var searchText = MainViewModel.SearchText;
             bool search = !string.IsNullOrEmpty(searchText);
@@ -84,7 +84,7 @@ namespace FileExplorer.ViewModels {
             }
 
             if(_items == null) {
-                _items = new ObservableCollection<ITreeViewItemMatch>();
+                _items = new ObservableCollection<ITreeViewItem>();
                 OnPropertyChanged(nameof(SubItems));
             }
             else
@@ -103,7 +103,7 @@ namespace FileExplorer.ViewModels {
 
         protected override void OnVisible(bool visible) {
             if(visible && _items != null && IsExpanded)
-                foreach(var item in _items)
+                foreach(var item in _items.OfType<ITreeViewItemMatch>())
                     item.IsVisible = true;
         }
 

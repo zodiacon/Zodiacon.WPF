@@ -63,7 +63,7 @@ namespace Zodiacon.WPF.Behaviors {
 
             var searchText = (string)e.NewValue;
 
-            var items = SearchRoot == null ? Items : SearchRoot.SubItems;
+            var items = SearchRoot == null ? Items : SearchRoot.SubItems.OfType<ITreeViewItemMatch>();
             if(items == null) return;
 
             if(IsBusy && _cts != null) {

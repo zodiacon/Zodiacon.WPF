@@ -69,7 +69,7 @@ namespace Zodiacon.WPF.Behaviors {
             _timer.Start();
         }
 
-        TreeViewItem GetTreeViewItemFromObject(ITreeViewItemMatch item) {
+        TreeViewItem GetTreeViewItemFromObject(ITreeViewItem item) {
             var indices = new List<int>(4);
             while(item.Parent != null) {
                 indices.Add(item.Parent.SubItems.IndexOf(item));
@@ -139,13 +139,13 @@ namespace Zodiacon.WPF.Behaviors {
             return null;
         }
 
-        private ITreeViewItemMatch SearchSubTree(ITreeViewItemMatch item) {
+        private ITreeViewItem SearchSubTree(ITreeViewItem item) {
             if(item.IsExpanded && item.SubItems != null) {
-                foreach(var subItem in item.SubItems) {
+                foreach(var subItem in item.SubItems.OfType<ITreeViewItemMatch>()) {
                     if(subItem.Text.StartsWith(_searchterm, StringComparison.CurrentCultureIgnoreCase)) {
                         return subItem;
                     }
-                    ITreeViewItemMatch newItem;
+                    ITreeViewItem newItem;
                     if(subItem.IsExpanded && (newItem = SearchSubTree(subItem)) != null) {
                         return newItem;
                     }

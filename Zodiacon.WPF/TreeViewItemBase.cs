@@ -14,7 +14,7 @@ namespace Zodiacon.WPF {
     public abstract class TreeViewItemBase : BindableBase, ITreeViewItemMatch {
         protected virtual void OnExpanded(bool expanded) { }
 
-        public ITreeViewItemMatch Parent { get; }
+        public ITreeViewItem Parent { get; }
 
         protected TreeViewItemBase(TreeViewItemBase parent = null) {
             Parent = parent;
@@ -38,7 +38,7 @@ namespace Zodiacon.WPF {
             set { SetProperty(ref _text, value); }
         }
 
-        public virtual IList<ITreeViewItemMatch> SubItems => null;
+        public virtual IList<ITreeViewItem> SubItems => null;
 
         bool _isSelected;
         public bool IsSelected {
@@ -85,7 +85,7 @@ namespace Zodiacon.WPF {
             }
 
             if(level != 0 && items != null) {
-                foreach(var item in items) {
+                foreach(var item in items.Cast<ITreeViewItemMatch>()) {
                     if(ct.IsCancellationRequested)
                         return false;
 

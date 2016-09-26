@@ -7,8 +7,8 @@ namespace Zodiacon.WPF {
     public interface ITreeViewItem {
         string Text { get; }
         bool IsExpanded { get; set; }
-        IList<ITreeViewItemMatch> SubItems { get; }
-        ITreeViewItemMatch Parent { get; }
+        IList<ITreeViewItem> SubItems { get; }
+        ITreeViewItem Parent { get; }
         bool IsSelected { get; set; }
     }
 
