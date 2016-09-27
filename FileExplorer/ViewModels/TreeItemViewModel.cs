@@ -28,13 +28,6 @@ namespace FileExplorer.ViewModels {
 
         public string FullPath { get; set; }
 
-        private string _icon;
-
-        public string Icon {
-            get { return _icon; }
-            set { SetProperty(ref _icon, value); }
-        }
-
         ObservableCollection<ITreeViewItem> _items;
         public override IList<ITreeViewItem> SubItems {
             get {

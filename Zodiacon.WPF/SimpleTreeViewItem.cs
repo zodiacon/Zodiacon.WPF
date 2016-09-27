@@ -23,6 +23,12 @@ namespace Zodiacon.WPF {
 			}
 		}
 
+		private string _icon;
+
+		public string Icon {
+			get { return _icon; }
+			set { SetProperty(ref _icon, value); }
+		}
 
 		private string _text;
 
