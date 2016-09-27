@@ -1,6 +1,7 @@
 ﻿using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -37,7 +38,8 @@ namespace Zodiacon.WPF {
 			set { SetProperty(ref _text, value); }
 		}
 
-		public virtual IList<ITreeViewItem> SubItems => null;
+		ObservableCollection<ITreeViewItem> _items;
+		public virtual IList<ITreeViewItem> SubItems => _items ?? (_items = new ObservableCollection<ITreeViewItem>());
 
 		bool _isSelected;
 		public bool IsSelected {
