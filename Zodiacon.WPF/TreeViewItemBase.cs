@@ -11,42 +11,8 @@ using System.Windows.Threading;
 using Zodiacon.WPF.Behaviors;
 
 namespace Zodiacon.WPF {
-    public abstract class TreeViewItemBase : BindableBase, ITreeViewItemMatch {
-        protected virtual void OnExpanded(bool expanded) { }
-
-        public ITreeViewItem Parent { get; }
-
-        protected TreeViewItemBase(TreeViewItemBase parent = null) {
-            Parent = parent;
-        }
-
-        private bool _isExpanded;
-
-        public virtual bool IsExpanded {
-            get { return _isExpanded; }
-            set {
-                if(SetProperty(ref _isExpanded, value))
-                    OnExpanded(value);
-            }
-        }
-
-
-        private string _text;
-
-        public string Text {
-            get { return _text; }
-            set { SetProperty(ref _text, value); }
-        }
-
-        public virtual IList<ITreeViewItem> SubItems => null;
-
-        bool _isSelected;
-        public bool IsSelected {
-            get { return _isSelected; }
-            set {
-                if(SetProperty(ref _isSelected, value))
-                    OnSelected(value);
-            }
+    public abstract class TreeViewItemBase : SimpleTreeViewItem, ITreeViewItemMatch {
+        protected TreeViewItemBase(ITreeViewItem parent = null) : base(parent) {
         }
 
         bool _isVisible = true;
@@ -58,11 +24,9 @@ namespace Zodiacon.WPF {
             }
         }
 
-        protected virtual void OnVisible(bool visible) { }
+		protected virtual void OnVisible(bool visible) { }
 
-        protected virtual void OnSelected(bool selected) { }
-
-        public async Task<bool> IsMatchAsync(string searchText, int level, CancellationToken ct, SearchTextOptions options) {
+		public async Task<bool> IsMatchAsync(string searchText, int level, CancellationToken ct, SearchTextOptions options) {
             if(ct.IsCancellationRequested)
                 return false;
 

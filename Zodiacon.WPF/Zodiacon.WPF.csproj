@@ -90,6 +90,7 @@
     <Compile Include="PropertyFollower.cs" />
     <Compile Include="SimpleFileDialogService.cs" />
     <Compile Include="SimpleMessageBox.cs" />
+    <Compile Include="SimpleTreeViewItem.cs" />
     <Compile Include="TreeViewItemBase.cs" />
     <Compile Include="UIServicesDefaults.cs" />
     <Compile Include="Utilities\TreeViewHelper.cs" />
