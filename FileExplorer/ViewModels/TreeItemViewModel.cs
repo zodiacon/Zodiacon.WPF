@@ -95,7 +95,7 @@ namespace FileExplorer.ViewModels {
         }
 
         protected override void OnVisible(bool visible) {
-            if(visible && _items != null && IsExpanded)
+            if(visible && _items != null && IsExpanded && !string.IsNullOrEmpty(MainViewModel.SearchText))
                 foreach(var item in _items.OfType<ITreeViewItemMatch>())
                     item.IsVisible = true;
         }

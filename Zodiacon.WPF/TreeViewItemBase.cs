@@ -26,7 +26,7 @@ namespace Zodiacon.WPF {
 
 		protected virtual void OnVisible(bool visible) { }
 
-		public async Task<bool> IsMatchAsync(string searchText, int level, CancellationToken ct, SearchTextOptions options) {
+		public async virtual Task<bool> IsMatchAsync(string searchText, int level, CancellationToken ct, SearchTextOptions options) {
             if(ct.IsCancellationRequested)
                 return false;
 
@@ -72,6 +72,6 @@ namespace Zodiacon.WPF {
             return visible || any;
         }
 
-        public virtual Task BuildSubItemsAsync(bool build, CancellationToken ct) => Task.FromResult<object>(null);
+        public virtual Task BuildSubItemsAsync(bool build, CancellationToken ct) => Task.FromResult(SubItems);
     }
 }

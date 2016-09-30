@@ -38,8 +38,11 @@ namespace Zodiacon.WPF {
 			set { SetProperty(ref _text, value); }
 		}
 
-		ObservableCollection<ITreeViewItem> _items;
-		public virtual IList<ITreeViewItem> SubItems => _items ?? (_items = new ObservableCollection<ITreeViewItem>());
+		IList<ITreeViewItem> _items;
+		public virtual IList<ITreeViewItem> SubItems {
+			get { return _items; }
+			set { SetProperty(ref _items, value); }
+		}
 
 		bool _isSelected;
 		public bool IsSelected {
