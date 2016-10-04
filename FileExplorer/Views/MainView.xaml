@@ -14,6 +14,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -56,7 +57,9 @@
                 </Style>
             </TreeView.ItemContainerStyle>
         </TreeView>
-
+        <StatusBar Grid.Row="2" Grid.ColumnSpan="2">
+            <TextBlock Text="{Binding StatusText}" />
+        </StatusBar>
         <DataGrid Grid.Row="1" Grid.Column="1" ItemsSource="{Binding Files}" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTemplateColumn CanUserReorder="False" SortMemberPath="Name" Header="Name">

@@ -45,7 +45,7 @@ namespace Zodiacon.WPF {
                 IsVisible = true;
                 if(Parent != null)
                     Parent.IsExpanded = true;
-                await Dispatcher.Yield(DispatcherPriority.DataBind);
+                await Dispatcher.Yield(DispatcherPriority.Background);
             }
 
             if(level != 0 && items != null) {
