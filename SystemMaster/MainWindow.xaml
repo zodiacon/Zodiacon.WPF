@@ -1,12 +1,13 @@
-﻿<Window x:Class="SystemMaster.MainWindow"
+﻿<metro:MetroWindow x:Class="SystemMaster.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SystemMaster"
+                   xmlns:view="clr-namespace:SystemMaster.Views"
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
-        Title="{Binding Title}" MinHeight="350" MinWidth="460">
-    <Grid>
-        
-    </Grid>
-</Window>
+        Title="{Binding Title}" MinHeight="350" MinWidth="460" BorderThickness="1" BorderBrush="{DynamicResource AccentColorBrush}"
+        TitleCaps="False" Icon="/icons/laptop.ico">
+    <view:MainView />
+</metro:MetroWindow>
