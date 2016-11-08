@@ -6,18 +6,18 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Zodiacon.WPF {
-    class AppCommandManager : BindableBase {
-        public int UndoLevel { get; private set; }
+    public class AppCommandManager : BindableBase {
+        public int UndoLevel { get; }
         List<IAppCommand> _undoList;
         List<IAppCommand> _redoList;
 
-        public AppCommandManager(int undoLevel = 32) {
-            if(undoLevel < 1)
-                throw new ArgumentException("Undo level must be at least 1");
+        public AppCommandManager(int undoLevel = 0) {
+            if(undoLevel < 0)
+                throw new ArgumentException(nameof(undoLevel));
             UndoLevel = undoLevel;
 
-            _undoList = new List<IAppCommand>(UndoLevel);
-            _redoList = new List<IAppCommand>(UndoLevel);
+            _undoList = new List<IAppCommand>(UndoLevel + 1);
+            _redoList = new List<IAppCommand>(UndoLevel + 1);
         }
 
         public void AddCommand(IAppCommand command, bool execute = true) {

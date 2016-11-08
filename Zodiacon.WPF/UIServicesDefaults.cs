@@ -12,13 +12,10 @@ using System.Windows.Markup;
 namespace Zodiacon.WPF {
 	[Export]
 	public sealed class UIServicesDefaults {
-		[Export(typeof(IDialogService))]
 		public readonly IDialogService DialogService = DefaultDialogService.Instance;
 
-		[Export(typeof(IFileDialogService))]
 		public readonly IFileDialogService FileDialogService = SimpleFileDialogService.Instance;
 
-		[Export(typeof(IMessageBoxService))]
 		public readonly IMessageBoxService MessageBoxService = SimpleMessageBox.Instance;
 	}
 }
