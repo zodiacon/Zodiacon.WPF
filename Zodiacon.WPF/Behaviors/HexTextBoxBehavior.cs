@@ -9,26 +9,33 @@ using System.Windows.Input;
 using System.Windows.Interactivity;
 
 namespace Zodiacon.WPF.Behaviors {
-	public sealed class HexTextBoxBehavior : Behavior<TextBox> {
-		protected override void OnAttached() {
-			base.OnAttached();
+	public static class HexTextBoxBehavior {
 
-			AssociatedObject.PreviewKeyDown += AssociatedObject_PreviewKeyDown;
-			AssociatedObject.TextChanged += AssociatedObject_TextChanged;
+
+		public static bool GetIsHexInput(DependencyObject obj) {
+			return (bool)obj.GetValue(IsHexInputProperty);
 		}
 
-		private void AssociatedObject_TextChanged(object sender, TextChangedEventArgs e) {
-			Value = Convert.ToUInt64(AssociatedObject.Text, 16);
+		public static void SetIsHexInput(DependencyObject obj, bool value) {
+			obj.SetValue(IsHexInputProperty, value);
 		}
 
-		protected override void OnDetaching() {
-			AssociatedObject.PreviewKeyDown -= AssociatedObject_PreviewKeyDown;
-			AssociatedObject.TextChanged -= AssociatedObject_TextChanged;
+		public static readonly DependencyProperty IsHexInputProperty =
+			DependencyProperty.RegisterAttached("IsHexInput", typeof(bool), typeof(HexTextBoxBehavior), 
+				new PropertyMetadata(false, OnIsHexInputChanged));
 
-			base.OnDetaching();
+		private static void OnIsHexInputChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+			var tb = d as TextBox;
+			if (tb == null)
+				throw new InvalidOperationException("IsHexInput only valid on TextBox objects");
+
+			if ((bool)e.NewValue)
+				tb.PreviewKeyDown += OnKeyDown;
+			else
+				tb.PreviewKeyDown -= OnKeyDown;
 		}
 
-		private void AssociatedObject_PreviewKeyDown(object sender, KeyEventArgs e) {
+		private static void OnKeyDown(object sender, KeyEventArgs e) {
 			switch (e.Key) {
 				case Key.Left:
 				case Key.Right:
@@ -37,23 +44,9 @@ namespace Zodiacon.WPF.Behaviors {
 					return;
 			}
 			
-			if (e.Key < Key.D0 && e.Key > Key.D9 || e.Key < Key.A && e.Key > Key.F) {
+			if ((e.Key < Key.D0 || e.Key > Key.D9) && (e.Key < Key.A || e.Key > Key.F)) {
 				e.Handled = true;
 			}
 		}
-
-		public ulong Value {
-			get { return (ulong)GetValue(ValueProperty); }
-			set { SetValue(ValueProperty, value); }
-		}
-
-		public static readonly DependencyProperty ValueProperty =
-			DependencyProperty.Register(nameof(Value), typeof(ulong), typeof(HexTextBoxBehavior), 
-				new PropertyMetadata((ulong)0, (s, e) => ((HexTextBoxBehavior)s).OnValueChanged(e)));
-
-		private void OnValueChanged(DependencyPropertyChangedEventArgs e) {
-			AssociatedObject.Text = ((ulong)e.NewValue).ToString("X");
-		}
-
 	}
 }

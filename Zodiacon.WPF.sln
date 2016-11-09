@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{7034
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SystemMaster.Core", "SystemMaster.Core\SystemMaster.Core.csproj", "{6FC006DF-F6FA-4651-BA90-10CA92F3B497}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPlayground", "TestPlayground\TestPlayground.csproj", "{6EFFB357-2092-48E5-9F09-20B9EFCE402A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{6FC006DF-F6FA-4651-BA90-10CA92F3B497}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FC006DF-F6FA-4651-BA90-10CA92F3B497}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FC006DF-F6FA-4651-BA90-10CA92F3B497}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EFFB357-2092-48E5-9F09-20B9EFCE402A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EFFB357-2092-48E5-9F09-20B9EFCE402A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EFFB357-2092-48E5-9F09-20B9EFCE402A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EFFB357-2092-48E5-9F09-20B9EFCE402A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
