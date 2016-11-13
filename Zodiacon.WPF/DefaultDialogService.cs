@@ -11,14 +11,30 @@ namespace Zodiacon.WPF {
     sealed class DefaultDialogService : IDialogService {
         private DefaultDialogService() { }
 
-        public TViewModel CreateDialog<TViewModel, TDialog>(params object[] args) where TDialog : Window, new() where TViewModel : DialogViewModelBase {
+        public TViewModel CreateDialog<TViewModel, TDialog>(params object[] args) 
+			where TDialog : Window, new() 
+			where TViewModel : DialogViewModelBase {
             var dlg = new TDialog();
             var vm = (TViewModel)Activator.CreateInstance(typeof(TViewModel), new object[] { dlg }.Concat(args).ToArray());
             dlg.DataContext = vm;
+			if (dlg.Content == null)
+				dlg.Content = vm;
 
             return vm;
         }
 
-        public static readonly IDialogService Instance = new DefaultDialogService();
+		public TViewModel CreateDialog<TViewModel, TDialog>(TViewModel vm)
+			where TViewModel : DialogViewModelBase
+			where TDialog : Window, new() {
+			var dlg = new TDialog();
+			vm._dialog = dlg;
+			dlg.DataContext = vm;
+			if (dlg.Content == null)
+				dlg.Content = vm;
+
+			return vm;
+		}
+
+		public static readonly IDialogService Instance = new DefaultDialogService();
     }
 }

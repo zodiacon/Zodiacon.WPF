@@ -9,7 +9,7 @@ using Prism.Mvvm;
 
 namespace Zodiacon.WPF {
     public abstract class DialogViewModelBase : BindableBase {
-        Window _dialog;
+        internal Window _dialog;
         bool? _result;
 
         protected DialogViewModelBase(Window dialog) {
