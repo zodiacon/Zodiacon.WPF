@@ -9,11 +9,11 @@ using Prism.Mvvm;
 
 namespace Zodiacon.WPF {
     public abstract class DialogViewModelBase : BindableBase {
-        internal Window _dialog;
+        internal Window Dialog;
         bool? _result;
 
         protected DialogViewModelBase(Window dialog) {
-            _dialog = dialog;
+            Dialog = dialog;
 
             _okCommand = new DelegateCommand(() => OnOK(), _canExecuteOKCommand);
         }
@@ -22,24 +22,31 @@ namespace Zodiacon.WPF {
             Close(true);
         }
 
+		protected virtual void OnCancel() {
+			Close(false);
+		}
+
         protected DialogViewModelBase(bool? result) : this((Window)null) {
             _result = result;
         }
 
+		protected virtual void OnClose(bool? result) { }
+
         protected void Close(bool? result = true) {
-            if(_dialog != null) {
-                _dialog.DialogResult = result;
-                _dialog.Close();
+			OnClose(result);
+            if(Dialog != null) {
+                Dialog.DialogResult = result;
+                Dialog.Close();
             }
         }
 
         public bool? ShowDialog() {
-            return _dialog != null ? _dialog.ShowDialog() : _result;
+            return Dialog != null ? Dialog.ShowDialog() : _result;
         }
 
         public void Show() {
-            if(_dialog != null)
-                _dialog.Show();
+            if(Dialog != null)
+                Dialog.Show();
         }
 
         Func<bool> _canExecuteOKCommand = () => true;
@@ -47,7 +54,7 @@ namespace Zodiacon.WPF {
             get { return _canExecuteOKCommand; }
             set {
                 if(SetProperty(ref _canExecuteOKCommand, value)) {
-                    OKCommand = new DelegateCommand(() => Close(), value);
+                    OKCommand = new DelegateCommand(() => OnOK(), value);
                     OKCommand.RaiseCanExecuteChanged();
                 }
             }
@@ -55,7 +62,7 @@ namespace Zodiacon.WPF {
 
         public Func<bool> CanExecuteCancelCommand { get; set; } = () => true;
 
-        public DelegateCommand CancelCommand => new DelegateCommand(() => Close(false), CanExecuteCancelCommand);
+        public DelegateCommand CancelCommand => new DelegateCommand(() => OnCancel(), CanExecuteCancelCommand);
         private DelegateCommand _okCommand;
 
         public DelegateCommand OKCommand {

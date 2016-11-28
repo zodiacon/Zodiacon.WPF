@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace Zodiacon.WPF {
-    [Export(typeof(IMessageBoxService))]
+    [Export("default", typeof(IMessageBoxService))]
     sealed class SimpleMessageBox : IMessageBoxService {
         Window _owner;
         private SimpleMessageBox() {

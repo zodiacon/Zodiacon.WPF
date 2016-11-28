@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 
 namespace Zodiacon.WPF {
-    [Export(typeof(IDialogService))]
+    [Export("default", typeof(IDialogService))]
     sealed class DefaultDialogService : IDialogService {
         private DefaultDialogService() { }
 
@@ -27,7 +27,7 @@ namespace Zodiacon.WPF {
 			where TViewModel : DialogViewModelBase
 			where TDialog : Window, new() {
 			var dlg = new TDialog();
-			vm._dialog = dlg;
+			vm.Dialog = dlg;
 			dlg.DataContext = vm;
 			if (dlg.Content == null)
 				dlg.Content = vm;

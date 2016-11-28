@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Win32;
 
 namespace Zodiacon.WPF {
-    [Export(typeof(IFileDialogService))]
+    [Export("default", typeof(IFileDialogService))]
     sealed class SimpleFileDialogService : IFileDialogService {
         public string GetFileForOpen(string filter, string title) {
             var dlg = new OpenFileDialog {
