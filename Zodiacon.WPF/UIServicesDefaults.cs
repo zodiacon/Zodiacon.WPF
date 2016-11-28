@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,5 +18,11 @@ namespace Zodiacon.WPF {
 		public readonly IFileDialogService FileDialogService = SimpleFileDialogService.Instance;
 
 		public readonly IMessageBoxService MessageBoxService = SimpleMessageBox.Instance;
+
+		public void Publish(CompositionContainer container) {
+			container.ComposeExportedValue(DialogService);
+			container.ComposeExportedValue(FileDialogService);
+			container.ComposeExportedValue(MessageBoxService);
+		}
 	}
 }

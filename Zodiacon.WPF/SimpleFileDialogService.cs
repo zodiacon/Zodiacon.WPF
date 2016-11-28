@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Win32;
+using WPFFolderBrowser;
 
 namespace Zodiacon.WPF {
     [Export("default", typeof(IFileDialogService))]
@@ -25,6 +26,21 @@ namespace Zodiacon.WPF {
             return dlg.ShowDialog() == true ? dlg.FileName : null;
         }
 
-        public static readonly IFileDialogService Instance = new SimpleFileDialogService();
+		public string GetFolder(FolderBrowserOptions options = null) {
+			if (options == null)
+				options = new FolderBrowserOptions();
+			var dlg = new WPFFolderBrowserDialog {
+				Title = options.Title,
+				InitialDirectory = options.InitialDirectory,
+				ShowHiddenItems = options.ShowHidden,
+				ShowPlacesList = options.ShowPlaces
+			};
+			if (dlg.ShowDialog() == true) {
+				return dlg.FileName;
+			}
+			return null;
+		}
+
+		public static readonly IFileDialogService Instance = new SimpleFileDialogService();
     }
 }
