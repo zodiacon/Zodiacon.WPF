@@ -12,14 +12,14 @@ using System.Windows.Markup;
 
 namespace Zodiacon.WPF {
 	[Export]
-	public sealed class UIServicesDefaults {
-		public readonly IDialogService DialogService = DefaultDialogService.Instance;
+	public sealed class UIServicesDefaults : IUIServices {
+		public IDialogService DialogService { get; } = DefaultDialogService.Instance;
 
-		public readonly IFileDialogService FileDialogService = SimpleFileDialogService.Instance;
+		public IFileDialogService FileDialogService { get; } = SimpleFileDialogService.Instance;
 
-		public readonly IMessageBoxService MessageBoxService = SimpleMessageBox.Instance;
+		public IMessageBoxService MessageBoxService { get; } = SimpleMessageBox.Instance;
 
-		public void Publish(CompositionContainer container) {
+		public void Export(CompositionContainer container) {
 			container.ComposeExportedValue(DialogService);
 			container.ComposeExportedValue(FileDialogService);
 			container.ComposeExportedValue(MessageBoxService);

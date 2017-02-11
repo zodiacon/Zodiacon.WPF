@@ -31,7 +31,7 @@ namespace Zodiacon.WPF {
 				options = new FolderBrowserOptions();
 			var dlg = new WPFFolderBrowserDialog {
 				Title = options.Title,
-				InitialDirectory = options.InitialDirectory,
+				InitialDirectory = options.InitialDirectory ?? Environment.CurrentDirectory,
 				ShowHiddenItems = options.ShowHidden,
 				ShowPlacesList = options.ShowPlaces
 			};

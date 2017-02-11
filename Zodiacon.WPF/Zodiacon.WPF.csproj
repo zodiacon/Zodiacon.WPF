@@ -80,6 +80,7 @@
     <Compile Include="IMessageBoxService.cs" />
     <Compile Include="InputHelper.cs" />
     <Compile Include="ImageExtension.cs" />
+    <Compile Include="IUIServices.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
