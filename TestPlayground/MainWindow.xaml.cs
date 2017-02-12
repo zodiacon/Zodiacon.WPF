@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Commands;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,10 +30,12 @@ namespace TestPlayground {
 			set { SetValue(ValueProperty, value); }
 		}
 
-		// Using a DependencyProperty as the backing store for Value.  This enables animation, styling, binding, etc...
 		public static readonly DependencyProperty ValueProperty =
 			DependencyProperty.Register("Value", typeof(ulong), typeof(MainWindow), new PropertyMetadata((ulong)0));
 
+		public ICommand FileDroppedCommand => new DelegateCommand<string[]>(filenames => {
+			MessageBox.Show($"Dropped: {filenames[0]}");
+		});
 
 	}
 }

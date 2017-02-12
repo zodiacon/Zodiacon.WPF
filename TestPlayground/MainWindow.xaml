@@ -8,7 +8,7 @@
         xmlns:z="http://zodiacon.wpf/2016"
         mc:Ignorable="d" x:Name="This"
         Title="MainWindow" Height="350" Width="525">
-    <StackPanel>
-        <TextBox Width="200" FontSize="15" TextAlignment="Right" MaxLength="9" CharacterCasing="Upper" z:HexTextBoxBehavior.IsHexInput="True" />
-    </StackPanel>
+    <i:Interaction.Behaviors>
+        <z:FileDragDropBehavior Command="{Binding FileDroppedCommand, ElementName=This}" />
+    </i:Interaction.Behaviors>
 </Window>

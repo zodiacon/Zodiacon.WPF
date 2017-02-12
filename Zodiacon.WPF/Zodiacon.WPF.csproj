@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppCommandManager.cs" />
+    <Compile Include="Behaviors\FileDragDropBehavior.cs" />
     <Compile Include="Behaviors\FocusOnKeyDownBehavior.cs" />
     <Compile Include="Behaviors\FocusProperties.cs" />
     <Compile Include="Behaviors\HexTextBoxBehavior.cs" />
