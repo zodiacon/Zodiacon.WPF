@@ -68,7 +68,9 @@
     <Compile Include="Behaviors\KeyNavigationTreeViewBehavior.cs" />
     <Compile Include="Behaviors\SearchTextTreeViewBehavior.cs" />
     <Compile Include="Behaviors\SelectorActiveBehavior.cs" />
+    <Compile Include="Behaviors\TabContorlProperties.cs" />
     <Compile Include="Behaviors\TextBlockHighlightBehavior.cs" />
+    <Compile Include="Behaviors\TreeViewItemHelper.cs" />
     <Compile Include="IAppCommandManager.cs" />
     <Compile Include="ITreeViewItem.cs" />
     <Compile Include="Behaviors\TreeViewSelectedItemBehavior.cs" />
@@ -115,7 +117,9 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Controls\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

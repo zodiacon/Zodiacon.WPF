@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interactivity;
+using Zodiacon.WPF.Utilities;
 
 namespace Zodiacon.WPF.Behaviors {
     /// <summary>
@@ -29,13 +31,22 @@ namespace Zodiacon.WPF.Behaviors {
         }
 
         public object SelectedItem {
-            get { return (object)GetValue(SelectedItemProperty); }
+            get { return GetValue(SelectedItemProperty); }
             set { SetValue(SelectedItemProperty, value); }
         }
 
         public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register(nameof(SelectedItem), typeof(object), typeof(TreeViewSelectedItemBehavior), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(SelectedItem), typeof(object), typeof(TreeViewSelectedItemBehavior), 
+				new PropertyMetadata(null, OnSelectedItemChanged));
 
+		private static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+			var tree = (d as TreeViewSelectedItemBehavior).AssociatedObject;
+			Debug.Assert(tree != null);
 
-    }
+			if (e.NewValue != null) {
+				if (tree.ItemContainerGenerator.ContainerFromItem(e.NewValue) is TreeViewItem item)
+					item.IsSelected = true;
+			}
+		}
+	}
 }
