@@ -70,7 +70,7 @@
     <Compile Include="Behaviors\SelectorActiveBehavior.cs" />
     <Compile Include="Behaviors\TabContorlProperties.cs" />
     <Compile Include="Behaviors\TextBlockHighlightBehavior.cs" />
-    <Compile Include="Behaviors\TreeViewItemHelper.cs" />
+    <Compile Include="Behaviors\SelectedItemHelper.cs" />
     <Compile Include="IAppCommandManager.cs" />
     <Compile Include="ITreeViewItem.cs" />
     <Compile Include="Behaviors\TreeViewSelectedItemBehavior.cs" />
