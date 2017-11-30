@@ -23,8 +23,12 @@ namespace Zodiacon.WPF.Behaviors {
 				new PropertyMetadata(false, OnBringIntoViewWhenSelected));
 
 		private static void OnBringIntoViewWhenSelected(DependencyObject d, DependencyPropertyChangedEventArgs e) {
-			if (!(bool)e.NewValue)
+			if (!(bool)e.NewValue) {
+				if (d is DataGrid dg) {
+					dg.SelectionChanged -= DataGridSelectionChanged;
+				}
 				return;
+			}
 
 			switch (d) {
 				case TreeViewItem item:
@@ -37,47 +41,29 @@ namespace Zodiacon.WPF.Behaviors {
 						item.BringIntoView();
 					break;
 
+				case DataGridRow item:
+					if (item.IsSelected)
+						item.BringIntoView();
+					break;
+
+				case DataGrid dg:
+					dg.SelectionChanged += DataGridSelectionChanged;
+					break;
+
 				case FrameworkElement item:
 					if (Selector.GetIsSelected(item))
 						item.BringIntoView();
 					break;
 
 			}
-
 		}
 
-		// for DataGrid specifically
-
-		public static bool GetEnsureSelectedVisible(DependencyObject obj) {
-			return (bool)obj.GetValue(EnsureSelectedVisibleProperty);
-		}
-
-		public static void SetEnsureSelectedVisible(DependencyObject obj, bool value) {
-			obj.SetValue(EnsureSelectedVisibleProperty, value);
-		}
-
-		public static readonly DependencyProperty EnsureSelectedVisibleProperty =
-			DependencyProperty.RegisterAttached("EnsureSelectedVisible", typeof(bool), typeof(SelectedItemHelper), 
-				new PropertyMetadata(false, OnEnsureSelectedVisible));
-
-		private static void OnEnsureSelectedVisible(DependencyObject d, DependencyPropertyChangedEventArgs e) {
-			var dg = d as DataGrid;
-			if (dg == null)
-				return;
-
-			if ((bool)e.NewValue)
-				dg.SelectionChanged += Dg_SelectionChanged;
-			else
-				dg.SelectionChanged -= Dg_SelectionChanged;
-		}
-
-		private static void Dg_SelectionChanged(object sender, SelectionChangedEventArgs e) {
+		private static void DataGridSelectionChanged(object sender, SelectionChangedEventArgs e) {
 			var dg = sender as DataGrid;
 			Debug.Assert(dg != null);
 
 			if (dg.SelectedItem != null)
 				dg.ScrollIntoView(dg.SelectedItem);
 		}
-
 	}
 }

@@ -61,6 +61,7 @@
     <Compile Include="AppCommandBase.cs" />
     <Compile Include="AppCommandList.cs" />
     <Compile Include="AppCommandManager.cs" />
+    <Compile Include="Behaviors\EventToCommand.cs" />
     <Compile Include="Behaviors\FileDragDropBehavior.cs" />
     <Compile Include="Behaviors\FocusOnKeyDownBehavior.cs" />
     <Compile Include="Behaviors\FocusProperties.cs" />
